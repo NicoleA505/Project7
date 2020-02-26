@@ -1,0 +1,97 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.main-header {
+  padding: 10px 0px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-image {
+  height: 35px;
+  width: 35px;
+  margin-left: 40px;
+  margin-right: 5px;
+
+}
+
+.main-header-text {
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-weight: 800;
+  color: #009900;
+  display: inline-block;
+  font-size: 2.6rem;
+  margin: 0px; 
+}
+
+.map {
+  width: 66%;
+}
+
+.restaurant-list {
+  width: 34%;
+  padding: 10px;
+}
+
+.arial-font {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card {
+  margin-bottom: 30px;
+  padding: 20px;
+}
+
+.restaurant-name {
+  width: 85%;
+  border-bottom: 2px solid #61B329;
+  margin-bottom: 1px;
+}
+
+.restaurant-address {
+  color: #575757;
+  margin: 3px 0px;
+}
+
+.ratings-header {
+  margin: 10px 0px;
+  font-size: 1.2rem;
+}
+
+.ratingStarDiv{
+  margin-bottom: 10px;
+}
+
+.star-symbol {
+  color: #FFB90F;
+  margin: 1px 0px;
+  display: inline;
+}
+
+.ratingNumber {
+  color: #99A3A4;
+  display: inline;
+  margin-left: 10px;
+}
+
+.infoButton {
+  margin-bottom: 20px;
+}
+
+.moreInfoParagraph{
+  height: 100px;
+  width: 100%;
+}
