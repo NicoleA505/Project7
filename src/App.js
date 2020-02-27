@@ -45,15 +45,12 @@ export default class App extends React.Component {
     
   getPosition()
     .then( (position) => {
-      // console.log(position)
       this.setState({
         coordinates: {
           ...this.state.coordinates,
           lat: position.coords.latitude,
           long: position.coords.longitude
         } 
-        // lat: position.coords.latitude,
-        // long: position.coords.longitude
       })
       this.getRestaurants();
     })
@@ -64,7 +61,6 @@ export default class App extends React.Component {
   }
 
     render(){
-      // console.log("Lat & Long", this.state.coordinates.lat, this.state.coordinates.long)
       return (
         <div>
           <div className="main-header">
@@ -75,8 +71,8 @@ export default class App extends React.Component {
             <div className="map">
               <SimpleMap
                 restaurants={this.state.restaurants}
-                center={this.state.coordinates}
-                zoom={this.state.zoom}
+                coordinates={this.state.coordinates}
+                // zoom={this.state.zoom}
               />
             </div>
             <div className="restaurant-list">

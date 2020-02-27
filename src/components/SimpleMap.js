@@ -10,11 +10,29 @@ class SimpleMap extends Component {
       lat: 59.95,
       lng: 30.33
     },
-    zoom: 11
+    zoom: 10
   };
 
+  updateLocation = (props) => {
+    //Console log showing the defaultprops initially
+    console.log(this.props.center)
+
+    setTimeout( () => {
+      this.props.center.lat = this.props.coordinates.lat;
+      this.props.center.lng = this.props.coordinates.long
+      //console log showing the new defaultprops after the fetch request has returned. If the timeout is removed, the lat/long both receive a value of 0 which is the initital state of lat/long before the getRestaurants request in the parent.
+      console.log(this.props.center)
+    }, 2000) 
+  }
+
+  componentDidUpdate = () => {
+    this.updateLocation();
+  }
+
+
   render() {
-    // console.log(this.props.center);
+    // console.log(this.props.coordinates);
+    // console.log(this.props.center)
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '100vh', width: '100%' }}>
@@ -25,12 +43,12 @@ class SimpleMap extends Component {
           onChildMouseEnter={this.onChildMouseEnter}
           onChildMouseLeave={this.onChildMouseLeave}
         >
-          <Marker
+          {/* <Marker
             lat={this.props.center.lat}
             lng={this.props.center.long}
             name="My Marker"
             color="blue"
-          />
+          /> */}
         </GoogleMapReact>
       </div>
     );
