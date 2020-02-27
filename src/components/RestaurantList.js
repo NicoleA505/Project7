@@ -10,7 +10,7 @@ const RestaurantList = (props) => {
                 name = {restaurant.name}
                 address = {restaurant.vicinity}
                 ratingStars = {restaurant.rating}
-                
+                photo = {restaurant.photos}
             />
             )
     );
