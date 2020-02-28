@@ -1,34 +1,36 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker.tsx';
+import MarkerUserLocation from './MarkerUserLocation.tsx';
  
 // const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class SimpleMap extends Component {
+
   static defaultProps = {
     center: {
       lat: 59.95,
       lng: 30.33
     },
-    zoom: 10
+    zoom: 12
   };
 
-  updateLocation = (props) => {
-    //Console log showing the defaultprops initially
-    console.log(this.props.center)
-
-    setTimeout( () => {
-      this.props.center.lat = this.props.coordinates.lat;
-      this.props.center.lng = this.props.coordinates.long
-      //console log showing the new defaultprops after the fetch request has returned. If the timeout is removed, the lat/long both receive a value of 0 which is the initital state of lat/long before the getRestaurants request in the parent.
-      console.log(this.props.center)
-    }, 2000) 
+  componentDidMount = () => {
+    
+    const updatePosition = () => {
+      return new Promise(function(resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+      })
+    }
+    updatePosition()
+      .then( (position) => {
+        this.props.center.lat = position.coords.latitude;
+        this.props.center.lng = position.coords.longitude;
+      })
+      .catch( (err) => {
+        console.error(err.message);
+      })      
   }
-
-  componentDidUpdate = () => {
-    this.updateLocation();
-  }
-
 
   render() {
     // console.log(this.props.coordinates);
@@ -43,12 +45,22 @@ class SimpleMap extends Component {
           onChildMouseEnter={this.onChildMouseEnter}
           onChildMouseLeave={this.onChildMouseLeave}
         >
-          {/* <Marker
-            lat={this.props.center.lat}
-            lng={this.props.center.long}
-            name="My Marker"
-            color="blue"
-          /> */}
+          <MarkerUserLocation
+              lat={this.props.center.lat}
+              lng={this.props.center.lng}
+              name="My Marker"
+              color="red"
+            />
+          {this.props.restaurants.map( restaurant => 
+            <Marker
+              key={restaurant.id}
+              lat={restaurant.geometry.location.lat}
+              lng={restaurant.geometry.location.lng}
+              name="My Marker"
+              color="blue"
+            />
+          )}
+          
         </GoogleMapReact>
       </div>
     );

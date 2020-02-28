@@ -14,7 +14,6 @@ export default class App extends React.Component {
       long: 0,
     },
     restaurants: [],
-    zoom: 10
     }
 
   getRestaurants = () => {
