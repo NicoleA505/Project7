@@ -21,8 +21,8 @@ body {
 }
 
 .icon-image {
-  height: 35px;
-  width: 35px;
+  height: 37px;
+  width: 37px;
   margin-left: 40px;
   margin-right: 5px;
 
@@ -32,8 +32,7 @@ body {
   font-family: 'Barlow Semi Condensed', sans-serif;
   font-weight: 800;
   color: #009900;
-  display: inline-block;
-  font-size: 2.6rem;
+  font-size: 2rem;
   margin: 0px; 
 }
 

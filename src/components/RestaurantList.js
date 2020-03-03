@@ -2,7 +2,9 @@ import React from 'react'
 import Restaurant from './Restaurant'
 
 
+
 const RestaurantList = (props) => { 
+
     return (
         props.restaurants.map( restaurant => 
             <Restaurant 
@@ -12,6 +14,7 @@ const RestaurantList = (props) => {
                 ratingStars = {restaurant.rating}
                 restaurantId = {restaurant.id}
                 photo = {restaurant.photos}
+                place_id = {restaurant.place_id}
             />
             )
     );

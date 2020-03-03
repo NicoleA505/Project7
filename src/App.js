@@ -17,22 +17,22 @@ export default class App extends Component {
     reviews: []
     }
 
-  getReviews = () => {
-      let url2 = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${this.props.restaurantId}&fields=reviews&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
-      const proxyurl = "https://cors-anywhere.herokuapp.com/";
-      let url = proxyurl + url2;
-      axios.get(url)
-        .then(response => {
-          console.log(response.data.results);
-          this.setState({
-              reviews: response.data
-          });
-        })
-        .catch( error => {
-          // handle error
-          console.log(error);
-        })
-    };
+  // getReviews = () => {
+  //     let url2 = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${this.state.restaurants.place_id}&fields=name,review&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+  //     const proxyurl = "https://cors-anywhere.herokuapp.com/";
+  //     let url = proxyurl + url2;
+  //     axios.get(url)
+  //       .then(response => {
+  //         console.log(response.data);
+  //         this.setState({
+  //             reviews: response.data
+  //         });
+  //       })
+  //       .catch( error => {
+  //         // handle error
+  //         console.log(error);
+  //       })
+  //   };
 
   getRestaurants = () => {
     let url2 = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.REACT_APP_GOOGLE_API_KEY}&type=restaurant&location=${this.state.coordinates.lat},${this.state.coordinates.long}&radius=10000&origin=*`
@@ -70,27 +70,37 @@ export default class App extends Component {
         } 
       })
       this.getRestaurants();
-      this.getReviews();
+      // this.getReviews()
+
     })
     .catch( (err) => {
       console.error(err.message);
     })
+
  
   }
 
     render(){
+      // console.log(this.state.reviews)
       return (
         <div>
-          <div className="main-header">
+          <nav className="navbar navbar-light bg-light">
+            <a className="navbar-brand main-header-text" href="#">
+              <img src={iconImage} className="d-inline-block align-top icon-image" alt="" />
+              Restaurant Finder
+            </a>
+          </nav>
+
+          
+          {/* <div className="main-header">
             <img className="icon-image" src= {iconImage} alt="Logo"/>
             <h1 className="main-header-text">Restaurants Locater</h1>
-          </div>
+          </div> */}
           <div className="App">
             <div className="map">
               <SimpleMap
                 restaurants={this.state.restaurants}
                 coordinates={this.state.coordinates}
-                // zoom={this.state.zoom}
               />
             </div>
             <div className="restaurant-list">
