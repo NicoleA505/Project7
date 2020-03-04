@@ -85,7 +85,7 @@ export default class App extends Component {
       return (
         <div>
           <nav className="navbar navbar-light bg-light">
-            <a className="navbar-brand main-header-text" href="#">
+            <a className="navbar-brand main-header-text" href="#nav">
               <img src={iconImage} className="d-inline-block align-top icon-image" alt="" />
               Restaurant Finder
             </a>

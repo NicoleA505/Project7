@@ -14,7 +14,7 @@ const RestaurantList = (props) => {
                 ratingStars = {restaurant.rating}
                 restaurantId = {restaurant.id}
                 photo = {restaurant.photos}
-                place_id = {restaurant.place_id}
+                placeId = {restaurant.place_id}
             />
             )
     );
