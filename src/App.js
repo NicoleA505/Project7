@@ -17,23 +17,6 @@ export default class App extends Component {
     reviews: []
     }
 
-  // getReviews = () => {
-  //     let url2 = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${this.state.restaurants.place_id}&fields=name,review&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
-  //     const proxyurl = "https://cors-anywhere.herokuapp.com/";
-  //     let url = proxyurl + url2;
-  //     axios.get(url)
-  //       .then(response => {
-  //         console.log(response.data);
-  //         this.setState({
-  //             reviews: response.data
-  //         });
-  //       })
-  //       .catch( error => {
-  //         // handle error
-  //         console.log(error);
-  //       })
-  //   };
-
   getRestaurants = () => {
     let url2 = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.REACT_APP_GOOGLE_API_KEY}&type=restaurant&location=${this.state.coordinates.lat},${this.state.coordinates.long}&radius=10000&origin=*`
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -70,8 +53,6 @@ export default class App extends Component {
         } 
       })
       this.getRestaurants();
-      // this.getReviews()
-
     })
     .catch( (err) => {
       console.error(err.message);
