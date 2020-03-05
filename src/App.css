@@ -95,4 +95,44 @@ body {
   width: 100%;
 }
 
+/*** REVIEWS SECTION ***/
 
+.review {
+  margin: 20px 20px 0px;
+}
+
+.reviewAuthorInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reviewAuthorImage {
+  height: 40px;
+  width: 40px;
+}
+
+.reviewAuthorName {
+  margin-left: 20px;
+}
+
+.reviewText {
+  margin-top: 10px;
+  text-align: justify;
+}
+
+.reviewTimePosted {
+  color: #99A3A4;
+
+}
+
+/*Add a Review Section*/
+
+.submitButton {
+  display: block;
+  margin: 15px 0px;
+}
+
+.textareaReviewInput {
+  width: 300px;
+  height: 150px;
+}

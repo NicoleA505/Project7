@@ -49,27 +49,27 @@ class ReviewsList extends Component {
       } //End of componentDidMount
 
     render() { 
-        console.log(this.state.reviews)
-        console.log(this.state)
         return ( 
             <div>
-                <div>
-                    <p>Hello here I am!</p>
-                    {this.state.reviews.map( restaurant => 
-                        <Review 
-                            key = {this.props.restaurantId + restaurant.author_name }
-                            placeId = {this.props.placeId}
-                            author = {restaurant.author_name}
-                            author_url = {restaurant.author_url}
-                            profile_photo_url = {restaurant.profile_photo_url}
-                            rating = {restaurant.rating}
-                            text = {restaurant.text}
-                            timePosted = {restaurant.relative_time_description}
+                {this.state.reviews.map( restaurant => 
+                    <Review 
+                        key = {this.props.restaurantId + restaurant.author_name }
+                        placeId = {this.props.placeId}
+                        author = {restaurant.author_name}
+                        author_url = {restaurant.author_url}
+                        profile_photo_url = {restaurant.profile_photo_url}
+                        rating = {restaurant.rating}
+                        text = {restaurant.text}
+                        timePosted = {restaurant.relative_time_description}
 
-                        />
-                    )}
-                    <button className="btn btn-info btn-sm submitButton" type="submit">Add a Review</button>
-                </div>
+                    />
+                )}
+                <form>
+                    <div class="form-group">
+                        <textarea class="form-control" id="addReviewTextArea" rows="3" placeholder="Type your review here."></textarea>
+                    </div>
+                </form>
+                <button className="btn btn-info btn-sm submitButton" type="submit">Add a Review</button>   
             </div>
          );
     }

@@ -10,13 +10,13 @@ class Restaurant extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isToggle: false
+            isToggle: false,
         };
       }
 
     handleClick = (e) => {
             this.setState({
-                isToggle: !this.state.isToggle
+                isToggle: !this.state.isToggle,
             })
       }
 
@@ -32,13 +32,15 @@ class Restaurant extends Component {
                     <p className="star-symbol">{char.repeat(this.props.ratingStars)}</p>
                     <p className="ratingNumber">{this.props.ratingStars}</p>
                 </div>
-                <button className="btn btn-primary" onClick={this.handleClick}>See Reviews</button>
+                <button className="btn btn-primary" onClick={this.handleClick}>
+                    {this.state.isToggle? "Hide Reviews" : "See Reviews"}
+                </button>
                 {/* <div style={{display: this.state.isToggle? 'block' : 'none'}}>  */}
                 { this.state.isToggle ? 
                     <ReviewsList 
                     placeId = {this.props.placeId}
                     restaurantId = {this.props.restaurantId}
-                    /> 
+                    />
                     : null }
                 {/* </div> */}
 

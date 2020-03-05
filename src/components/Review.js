@@ -8,12 +8,14 @@ const Review = (props) => {
     return (
          <div className="review">
             <div className="reviewAuthorInfo">
-                <img src={props.profile_photo_url} alt={props.author}/>
-                <a href={props.author_url}>{props.author}</a>
+                <div className="authorInfo">
+                    <img className="reviewAuthorImage" src={props.profile_photo_url} alt={props.author}/>
+                    <a className="reviewAuthorName" href={props.author_url}>{props.author}</a>
+                </div>
+                <p className="star-symbol">{char.repeat(props.rating)}</p>
             </div>
-            <p>{char.repeat(props.rating)}</p>
-            <p>{props.text}</p>
-            <p>{props.timePosted}</p>
+            <p className="reviewText">{props.text}</p>
+            <p className="reviewTimePosted">{props.timePosted}</p>
         </div> 
     )
      
