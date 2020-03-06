@@ -42,7 +42,10 @@ body {
 
 .restaurant-list {
   width: 34%;
-  padding: 10px;
+  padding: 0px 10px;
+  height: 100vh;
+  overflow-y: scroll;
+
 }
 
 .arial-font {
@@ -135,4 +138,16 @@ body {
 .textareaReviewInput {
   width: 300px;
   height: 150px;
+}
+
+.addReviewName {
+  margin: 5px 0px;
+}
+
+.addReviewText {
+  margin: 5px 0px;
+}
+
+.starRatingText {
+  margin: 0px;
 }
