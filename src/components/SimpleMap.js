@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import Marker from './Marker.tsx';
+import Marker from './Marker.js';
 import MarkerUserLocation from './MarkerUserLocation.tsx';
+
  
 // const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -14,6 +15,23 @@ class SimpleMap extends Component {
     },
     zoom: 12
   };
+
+  // handleAddRestaurant = () => {
+
+  // }
+
+  _onClick = (obj) => {
+      console.log(obj.x, obj.y, obj.lat, obj.lng, obj.event);
+      // <Marker
+      //   key={obj.lat + obj.lng}
+      //   lat={obj.lat}
+      //   lng={obj.lng}
+      // >
+
+      // </Marker>
+  }
+
+
 
   componentDidMount = () => {
     
@@ -44,6 +62,7 @@ class SimpleMap extends Component {
           defaultZoom={this.props.zoom}
           onChildMouseEnter={this.onChildMouseEnter}
           onChildMouseLeave={this.onChildMouseLeave}
+          onClick={this._onClick}
         >
           <MarkerUserLocation
               lat={this.props.center.lat}
@@ -56,8 +75,9 @@ class SimpleMap extends Component {
               key={restaurant.id}
               lat={restaurant.geometry.location.lat}
               lng={restaurant.geometry.location.lng}
-              name="My Marker"
-              color="blue"
+              name = {restaurant.name}
+              rating = {restaurant.rating}
+              placeId = {restaurant.place_id}
             />
           )}
           

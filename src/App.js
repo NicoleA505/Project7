@@ -13,9 +13,10 @@ export default class App extends Component {
       lat: 0,
       long: 0,
     },
-    restaurants: [],
-    reviews: []
-    }
+    restaurants: []
+  }
+
+
 
   getRestaurants = () => {
     let url2 = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.REACT_APP_GOOGLE_API_KEY}&type=restaurant&location=${this.state.coordinates.lat},${this.state.coordinates.long}&radius=10000&origin=*`
@@ -23,7 +24,7 @@ export default class App extends Component {
     let url = proxyurl + url2;
     axios.get(url)
     .then(response => {
-        // console.log(response.data.results[0]);
+        console.log(response.data.results[0]);
     // handle success
     this.setState({
         restaurants: response.data.results

@@ -1,51 +1,25 @@
 import React, { Component } from 'react'
 import Review from './Review'
 import axios from 'axios'
+import AddReviewForm from './AddReviewForm';
 
 
 class ReviewsList extends Component {
     state = {
-        reviews: [],
-        value: {
-            author: '',
-            text: ""
-        },
+        reviews: []
     };
 
-      
-    handleChangeName = (event) => {
-        let nameValue = event.target.value;
-        this.setState({
-            value: {
-                name: nameValue,
+
+    handleAddNewReview = (newReview) => {
+        this.setState( prevState => {
+            return {
+                reviews: [
+                    ...prevState.reviews,
+                    newReview
+                ]
             }
-        });
-        // console.log(this.state.value.name)
-    }
-
-    handleChangeText = (event) => {
-        this.setState({
-            value: {
-                text: event.target.value
-            }
-        });
-        // console.log(this.state.value.text)
-    }
-
-    handleSubmit = (event) => {
-        let newReview = {
-            author: this.state.value.name,
-            text: this.state.value.text,
-            profile_photo_url: '../images/user.png'
-
-        }
-        this.setState({
-            reviews: this.state.reviews.concat(newReview)
         })
-        console.log(newReview)
-        console.log('A review was submitted: ' + this.state.value.name + ", " + this.state.value.text);
-        event.preventDefault();
-      }
+    }
 
 
     componentDidMount = () => {
@@ -90,14 +64,9 @@ class ReviewsList extends Component {
 
                     />
                 )}
-                <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <h5>Add a Review:</h5>
-                        <input className="form-control addReviewName" id="addReviewAuthorName" type="text" placeholder="Your name:" value={this.state.value.author} onChange={this.handleChangeName} />
-                        <textarea className="form-control addReviewText" id="addReviewTextArea" rows="3" placeholder="Type your review here." value={this.state.value.text} onChange={this.handleChangeText}></textarea>
-                    </div>
-                    <button className="btn btn-info btn-sm submitButton" type="submit" value="Submit">Add Review</button>  
-                </form>
+                <AddReviewForm 
+                    addNewReview = {this.handleAddNewReview}
+                />
  
             </div>
          );

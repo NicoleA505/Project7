@@ -6,6 +6,7 @@ import Restaurant from './Restaurant'
 const RestaurantList = (props) => { 
 
     return (
+       
         props.restaurants.map( restaurant => 
             <Restaurant 
                 key = {restaurant.id.toString()}
@@ -13,8 +14,10 @@ const RestaurantList = (props) => {
                 address = {restaurant.vicinity}
                 ratingStars = {restaurant.rating}
                 restaurantId = {restaurant.id}
-                photo = {restaurant.photos}
+                photo = {restaurant.photos[0]}
                 placeId = {restaurant.place_id}
+                location = {restaurant.geometry.location}
+                openingHours = {restaurant.opening_hours}
             />
             )
     );
