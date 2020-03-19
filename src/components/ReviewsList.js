@@ -33,7 +33,7 @@ class ReviewsList extends Component {
             let url = proxyurl + url2;
             axios.get(url)
                 .then((response) => {
-                console.log(response.data.result.reviews);
+                // console.log(response.data.result.reviews);
                 // return response.data.result.reviews;
                 this.setState({
                     reviews: response.data.result.reviews

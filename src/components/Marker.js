@@ -7,6 +7,7 @@ class Marker extends Component {
     state = {
       infoWindowOpen: false
     }
+    
 
     handleInfoWindow = (e) => {
       this.setState({

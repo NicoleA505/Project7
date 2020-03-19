@@ -2,35 +2,58 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker.js';
 import MarkerUserLocation from './MarkerUserLocation.tsx';
+import AddRestaurantForm from './AddRestaurantForm'
+
 
  
 // const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class SimpleMap extends Component {
 
+  state = {
+    clickMap: true,
+    clickLat: 0,
+    clickLng: 0
+  }
+
+
   static defaultProps = {
     center: {
       lat: 59.95,
       lng: 30.33
     },
-    zoom: 12
+    zoom: 12,
   };
 
-  // handleAddRestaurant = () => {
-
+  // addNewRestaurant = (newRestaurant) => {
+  //   this.setState( prevState => {
+  //     return {
+  //         restaurants: [
+  //             ...prevState.restaurants,
+  //             newRestaurant
+  //         ],
+  //         handleAddRestaurant: false
+  //     }
+  // })
+  //   console.log(this.state.restaurants)
   // }
+
 
   _onClick = (obj) => {
       console.log(obj.x, obj.y, obj.lat, obj.lng, obj.event);
-      // <Marker
-      //   key={obj.lat + obj.lng}
-      //   lat={obj.lat}
-      //   lng={obj.lng}
-      // >
+      // this.props.center.lat = obj.lat;
+      // this.props.center.lng = obj.lng;
 
-      // </Marker>
+      let lat = obj.lat;
+      let lng = obj.lng;
+      this.setState({
+        clickLat: lat,
+        clickLng: lng
+      })
+      console.log("clickLat: ", this.state.clickLat, "clickLng: ", this.state.clickLng)
+      this.props.handleAddRestaurant() //toggles the AddRestaurantForm Component
+      this.handleClickMap() //toggles the click event handler on the map
   }
-
 
 
   componentDidMount = () => {
@@ -44,15 +67,20 @@ class SimpleMap extends Component {
       .then( (position) => {
         this.props.center.lat = position.coords.latitude;
         this.props.center.lng = position.coords.longitude;
+        console.log("My Personal Location: ", this.props.center)
       })
       .catch( (err) => {
         console.error(err.message);
       })      
   }
 
+  handleClickMap = () => {
+    this.setState({
+      clickMap: !this.state.clickMap
+    })
+  }
+
   render() {
-    // console.log(this.props.coordinates);
-    // console.log(this.props.center)
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '100vh', width: '100%' }}>
@@ -62,7 +90,7 @@ class SimpleMap extends Component {
           defaultZoom={this.props.zoom}
           onChildMouseEnter={this.onChildMouseEnter}
           onChildMouseLeave={this.onChildMouseLeave}
-          onClick={this._onClick}
+          onClick={ this.state.clickMap? this._onClick : null}
         >
           <MarkerUserLocation
               lat={this.props.center.lat}
@@ -80,6 +108,16 @@ class SimpleMap extends Component {
               placeId = {restaurant.place_id}
             />
           )}
+          {this.props.addRestaurant ? 
+          <React.Fragment>
+            <AddRestaurantForm 
+              addNewRestaurant={this.props.addNewRestaurant}
+              handleClickMap={this.handleClickMap}
+              clickLat={this.state.clickLat}
+              clickLng={this.state.clickLng}
+            />
+          </React.Fragment>
+          : null }
           
         </GoogleMapReact>
       </div>

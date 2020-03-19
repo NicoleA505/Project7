@@ -13,10 +13,9 @@ export default class App extends Component {
       lat: 0,
       long: 0,
     },
-    restaurants: []
+    restaurants: [],
+    addRestaurant: false,
   }
-
-
 
   getRestaurants = () => {
     let url2 = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.REACT_APP_GOOGLE_API_KEY}&type=restaurant&location=${this.state.coordinates.lat},${this.state.coordinates.long}&radius=10000&origin=*`
@@ -24,7 +23,7 @@ export default class App extends Component {
     let url = proxyurl + url2;
     axios.get(url)
     .then(response => {
-        console.log(response.data.results[0]);
+        // console.log(response.data.results[0]);
     // handle success
     this.setState({
         restaurants: response.data.results
@@ -62,8 +61,26 @@ export default class App extends Component {
  
   }
 
+  handleAddRestaurant = () => {
+    this.setState({
+      addRestaurant: !this.state.addRestaurant
+    })
+  }
+
+  addNewRestaurant = (newRestaurant) => {
+    console.log(newRestaurant)
+    this.setState({
+          restaurants: [
+              ...this.state.restaurants,
+              newRestaurant
+          ],
+          handleAddRestaurant: false
+  })
+    console.log(this.state.restaurants)
+  }
+
     render(){
-      // console.log(this.state.reviews)
+      console.log(this.state.restaurants)
       return (
         <div>
           <nav className="navbar navbar-light bg-light">
@@ -83,6 +100,9 @@ export default class App extends Component {
               <SimpleMap
                 restaurants={this.state.restaurants}
                 coordinates={this.state.coordinates}
+                addNewRestaurant={this.addNewRestaurant}
+                addRestaurant={this.state.addRestaurant}
+                handleAddRestaurant={this.handleAddRestaurant}
               />
             </div>
             <div className="restaurant-list">

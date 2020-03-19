@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import userLogo from '../images/user.png'
 
 class AddReviewForm extends Component {
     state = { 
@@ -28,7 +27,7 @@ class AddReviewForm extends Component {
         let newReview = {
             author_name: this.state.authorValue,
             text: this.state.textValue,
-            profile_photo_url: {userLogo},
+            profile_photo_url: require('../images/user.png'),
             author_url: "#"
 
         }
@@ -40,6 +39,7 @@ class AddReviewForm extends Component {
         console.log(newReview)
         console.log('A review was submitted: ' + this.state.authorValue + ", " + this.state.textValue);
       }
+
 
     render() { 
         return ( 
