@@ -18,6 +18,10 @@ class SimpleMap extends Component {
 
 
   static defaultProps = {
+    newCenter: {
+      lat: 0,
+      lng: 0
+    },
     center: {
       lat: 59.95,
       lng: 30.33
@@ -25,24 +29,11 @@ class SimpleMap extends Component {
     zoom: 12,
   };
 
-  // addNewRestaurant = (newRestaurant) => {
-  //   this.setState( prevState => {
-  //     return {
-  //         restaurants: [
-  //             ...prevState.restaurants,
-  //             newRestaurant
-  //         ],
-  //         handleAddRestaurant: false
-  //     }
-  // })
-  //   console.log(this.state.restaurants)
-  // }
-
 
   _onClick = (obj) => {
       console.log(obj.x, obj.y, obj.lat, obj.lng, obj.event);
-      // this.props.center.lat = obj.lat;
-      // this.props.center.lng = obj.lng;
+      this.props.newCenter.lat = obj.lat;
+      this.props.newCenter.lng = obj.lng;
 
       let lat = obj.lat;
       let lng = obj.lng;
@@ -112,6 +103,7 @@ class SimpleMap extends Component {
           <React.Fragment>
             <AddRestaurantForm 
               addNewRestaurant={this.props.addNewRestaurant}
+              handleAddRestaurant={this.props.handleAddRestaurant}
               handleClickMap={this.handleClickMap}
               clickLat={this.state.clickLat}
               clickLng={this.state.clickLng}

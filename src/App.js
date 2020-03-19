@@ -90,19 +90,14 @@ export default class App extends Component {
             </a>
           </nav>
 
-          
-          {/* <div className="main-header">
-            <img className="icon-image" src= {iconImage} alt="Logo"/>
-            <h1 className="main-header-text">Restaurants Locater</h1>
-          </div> */}
           <div className="App">
             <div className="map">
               <SimpleMap
                 restaurants={this.state.restaurants}
                 coordinates={this.state.coordinates}
-                addNewRestaurant={this.addNewRestaurant}
-                addRestaurant={this.state.addRestaurant}
-                handleAddRestaurant={this.handleAddRestaurant}
+                addNewRestaurant={this.addNewRestaurant} //function that actually adds the restaurant to the restaurant array
+                addRestaurant={this.state.addRestaurant} //the toggle state for restaurant form
+                handleAddRestaurant={this.handleAddRestaurant} //toggles the restaurant form
               />
             </div>
             <div className="restaurant-list">

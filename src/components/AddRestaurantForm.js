@@ -43,6 +43,7 @@ class AddRestaurantForm extends Component {
         console.log(newRestaurant)
         console.log('A review was submitted: ' + this.state.restaurantName);
         this.props.handleClickMap();
+        this.props.handleAddRestaurant();
       }
 
     render() { 
