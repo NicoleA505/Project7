@@ -41,7 +41,7 @@ class AddRestaurantForm extends Component {
         }
         this.props.addNewRestaurant(newRestaurant);
         console.log(newRestaurant)
-        console.log('A review was submitted: ' + this.state.restaurantName);
+        // console.log('A review was submitted: ' + this.state.restaurantName);
         this.props.handleClickMap();
         this.props.handleAddRestaurant();
       }

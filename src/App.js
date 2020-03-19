@@ -3,6 +3,7 @@ import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SimpleMap from  './components/SimpleMap'
 import RestaurantList from './components/RestaurantList'
+import Star from './components/Star'
 import './App.css';
 import iconImage from './images/fork.png'
 
@@ -15,6 +16,7 @@ export default class App extends Component {
     },
     restaurants: [],
     addRestaurant: false,
+    rating: 0
   }
 
   getRestaurants = () => {
@@ -57,9 +59,50 @@ export default class App extends Component {
     .catch( (err) => {
       console.error(err.message);
     })
+  } //End of ComponentDidMount
 
- 
+  renderStars = () => {
+    let stars = [];
+    let maxRating = 5;
+    for(let i = 0; i < maxRating; i++ ){
+        stars.push(
+            <Star 
+                key={i}
+                setRating={ () => this.handleSetRating(i + 1)}
+                isSelected={this.state.rating > i}
+            />
+        );
+    }
+    return stars;
   }
+
+  filterRestaurants = () => {
+    this.getRestaurants(); //Calling for the original restaurants array again so when filtering a second time it doesn't filter through the first filtered array.
+    const result = this.state.restaurants.filter(restaurant =>
+        restaurant.rating >= this.state.rating
+        );
+    console.log("Result of the filter: ", result);
+    this.setState({
+      restaurants: result
+    })
+    console.log("this.state.restaurants after the filter (filtered results pushed into the state): ", this.state.restaurants)
+  }
+
+  handleSetRating = (rating) => {
+      if(this.state.rating === rating) {
+          this.setState({
+              rating: 0
+          });
+          this.getRestaurants(); //Calling the original google API array if clicking the ratings star amount again, cancelling the filter request
+      } else {
+          this.setState({
+              rating
+          });
+          this.filterRestaurants();
+      }
+  } 
+
+  
 
   handleAddRestaurant = () => {
     this.setState({
@@ -80,7 +123,7 @@ export default class App extends Component {
   }
 
     render(){
-      console.log(this.state.restaurants)
+      console.log("This.state.restaurants: ", this.state.restaurants)
       return (
         <div>
           <nav className="navbar navbar-light bg-light">
@@ -103,6 +146,9 @@ export default class App extends Component {
             <div className="restaurant-list">
               <RestaurantList   
                 restaurants={this.state.restaurants}
+                renderStars={this.renderStars}
+                handleSetRating={this.handleSetRating}
+                filterRestaurants={this.filterRestaurants}
                 />
             </div>
           </div>

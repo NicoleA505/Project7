@@ -58,7 +58,7 @@ class SimpleMap extends Component {
       .then( (position) => {
         this.props.center.lat = position.coords.latitude;
         this.props.center.lng = position.coords.longitude;
-        console.log("My Personal Location: ", this.props.center)
+        // console.log("My Personal Location: ", this.props.center)
       })
       .catch( (err) => {
         console.error(err.message);
@@ -82,6 +82,8 @@ class SimpleMap extends Component {
           onChildMouseEnter={this.onChildMouseEnter}
           onChildMouseLeave={this.onChildMouseLeave}
           onClick={ this.state.clickMap? this._onClick : null}
+          // yesIWantToUseGoogleMapApiInternals
+          // onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
         >
           <MarkerUserLocation
               lat={this.props.center.lat}

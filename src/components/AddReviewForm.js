@@ -66,7 +66,8 @@ class AddReviewForm extends Component {
         this.props.addNewReview(newReview);
         this.setState({
             authorValue: "",
-            textValue: ""
+            textValue: "",
+            rating: 0
         })
         console.log(newReview)
         console.log('A review was submitted: ' + this.state.authorValue + ", " + this.state.textValue);
@@ -79,7 +80,7 @@ class AddReviewForm extends Component {
                 <div className="form-group">
                     <h5>Add a Review:</h5>
                     <input className="form-control addReviewName" id="addReviewAuthorName" type="text" placeholder="Your name:" value={this.state.authorValue} onChange={this.handleChangeName} />
-                    <p className="starRatingText">What would you rate this restaurants?</p>
+                    <p className="starRatingText">What would you rate this restaurant?</p>
                     <StarRating 
                         renderStars={this.renderStars}
                         handleSetRating={this.handleSetRating}
