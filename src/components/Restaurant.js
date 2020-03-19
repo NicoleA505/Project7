@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReviewsList from './ReviewsList'
-import axios from 'axios'
+// import axios from 'axios'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 

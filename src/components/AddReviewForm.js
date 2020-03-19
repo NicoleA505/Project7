@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import StarRating from './StarRating'
+import Star from './Star'
+
 
 class AddReviewForm extends Component {
     state = { 
         authorValue: "",
-        textValue: ""
+        textValue: "",
+        rating: 0
      }
 
           
@@ -13,6 +17,33 @@ class AddReviewForm extends Component {
         });
         // console.log(this.state.authorValue)
     }
+
+    renderStars = () => {
+        let stars = [];
+        let maxRating = 5;
+        for(let i = 0; i < maxRating; i++ ){
+            stars.push(
+                <Star 
+                    key={i}
+                    setRating={ () => this.handleSetRating(i + 1)}
+                    isSelected={this.state.rating > i}
+                />
+            );
+        }
+        return stars;
+    }
+
+    handleSetRating = (rating) => {
+        if(this.state.rating === rating) {
+            this.setState({
+                rating: 0
+            });
+        } else {
+            this.setState({
+                rating
+            });
+        }
+    } 
 
     handleChangeText = (event) => {
         this.setState({
@@ -28,7 +59,8 @@ class AddReviewForm extends Component {
             author_name: this.state.authorValue,
             text: this.state.textValue,
             profile_photo_url: require('../images/user.png'),
-            author_url: "#"
+            author_url: "#",
+            rating: this.state.rating
 
         }
         this.props.addNewReview(newReview);
@@ -47,6 +79,11 @@ class AddReviewForm extends Component {
                 <div className="form-group">
                     <h5>Add a Review:</h5>
                     <input className="form-control addReviewName" id="addReviewAuthorName" type="text" placeholder="Your name:" value={this.state.authorValue} onChange={this.handleChangeName} />
+                    <p className="starRatingText">What would you rate this restaurants?</p>
+                    <StarRating 
+                        renderStars={this.renderStars}
+                        handleSetRating={this.handleSetRating}
+                    />
                     <textarea className="form-control addReviewText" id="addReviewTextArea" rows="3" placeholder="Type your review here." value={this.state.textValue} onChange={this.handleChangeText}></textarea>
                 </div>
                 <button className="btn btn-info btn-sm submitButton" type="submit" value="Submit" >Add Review</button>  
