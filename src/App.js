@@ -14,7 +14,9 @@ export default class App extends Component {
       lat: 0,
       long: 0,
     },
-    restaurants: [],
+    restaurants: [], 
+    filteredRestaurants: [],
+    isFiltered: false,
     addRestaurant: false,
     rating: 0
   }
@@ -77,13 +79,14 @@ export default class App extends Component {
   }
 
   filterRestaurants = () => {
-    this.getRestaurants(); //Calling for the original restaurants array again so when filtering a second time it doesn't filter through the first filtered array.
+    // this.getRestaurants(); //Calling for the original restaurants array again so when filtering a second time it doesn't filter through the first filtered array.
     const result = this.state.restaurants.filter(restaurant =>
         restaurant.rating >= this.state.rating
         );
     console.log("Result of the filter: ", result);
     this.setState({
-      restaurants: result
+      isFiltered: true,
+      filteredRestaurants: result
     })
     console.log("this.state.restaurants after the filter (filtered results pushed into the state): ", this.state.restaurants)
   }
@@ -91,12 +94,14 @@ export default class App extends Component {
   handleSetRating = (rating) => {
       if(this.state.rating === rating) {
           this.setState({
-              rating: 0
+              rating: 0,
+              isFiltered: false
           });
           this.getRestaurants(); //Calling the original google API array if clicking the ratings star amount again, cancelling the filter request
       } else {
           this.setState({
-              rating
+              rating,
+              isFiltered: true
           });
           this.filterRestaurants();
       }
@@ -124,12 +129,13 @@ export default class App extends Component {
 
     render(){
       console.log("This.state.restaurants: ", this.state.restaurants)
+      // console.log(this.state.coordinates)
       return (
         <div>
           <nav className="navbar navbar-light bg-light">
-            <a className="navbar-brand main-header-text" href="#nav">
+            <a className="navbar-brand main-header-text display-flex" href="#nav">
               <img src={iconImage} className="d-inline-block align-top icon-image" alt="" />
-              Restaurant Finder
+              <span>Spoon Search</span>
             </a>
           </nav>
 
@@ -148,7 +154,7 @@ export default class App extends Component {
                 restaurants={this.state.restaurants}
                 renderStars={this.renderStars}
                 handleSetRating={this.handleSetRating}
-                filterRestaurants={this.filterRestaurants}
+                // filterRestaurants={this.filterRestaurants}
                 />
             </div>
           </div>

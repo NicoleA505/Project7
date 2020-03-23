@@ -20,11 +20,11 @@ class Marker extends Component {
       const color = "blue";
       return (
         <React.Fragment>
-        <div className="marker"
-          style={{ backgroundColor: color, cursor: 'pointer'}}
-          onClick={this.handleInfoWindow}
-          // title={this.props.key}
-        />
+          <div className="marker"
+            style={{ backgroundColor: color, cursor: 'pointer'}}
+            onClick={this.handleInfoWindow}
+            // title={this.props.key}
+          />
 
         {this.state.infoWindowOpen ? 
           <React.Fragment>
@@ -34,6 +34,7 @@ class Marker extends Component {
             placeId = {this.props.placeId}
             lat = {this.props.lat}
             lng = {this.props.lng}
+            photo = {this.props.photo}
           /> 
           </React.Fragment>
           : null }

@@ -78,9 +78,15 @@ body {
   margin-bottom: 1px;
 }
 
+.display-flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .restaurant-address {
   color: #575757;
-  margin: 3px 0px;
+  margin: 0px 10px;
 }
 
 .restaurant-open-color {
@@ -199,6 +205,7 @@ body {
 
 .starToClick:hover {
   cursor: pointer;
+  color: #FFB90F;
 }
 
 .selected {
@@ -214,7 +221,8 @@ body {
   background-color: #fff;
   text-align: center;
   border-radius: 5px;
-  border: 1px solid blue;
+  border: 1px solid #3e3e3e;
+  box-shadow: 0 0 5px; 
   font-family: Arial;
   padding: 15px;
   z-index: 10000 !important;
@@ -242,3 +250,6 @@ body {
   padding: 20px;
   border-radius: 5px;
 }
+
+
+

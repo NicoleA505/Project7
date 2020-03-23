@@ -18,13 +18,13 @@ class SimpleMap extends Component {
 
 
   static defaultProps = {
-    newCenter: {
-      lat: 0,
-      lng: 0
-    },
+    // newCenter: {
+    //   lat: 0,
+    //   lng: 0
+    // },
     center: {
-      lat: 59.95,
-      lng: 30.33
+      lat: 20,
+      lng: 100
     },
     zoom: 12,
   };
@@ -32,8 +32,8 @@ class SimpleMap extends Component {
 
   _onClick = (obj) => {
       console.log(obj.x, obj.y, obj.lat, obj.lng, obj.event);
-      this.props.newCenter.lat = obj.lat;
-      this.props.newCenter.lng = obj.lng;
+      // this.props.newCenter.lat = obj.lat;
+      // this.props.newCenter.lng = obj.lng;
 
       let lat = obj.lat;
       let lng = obj.lng;
@@ -99,6 +99,7 @@ class SimpleMap extends Component {
               name = {restaurant.name}
               rating = {restaurant.rating}
               placeId = {restaurant.place_id}
+              photo = {restaurant.photos[0]}
             />
           )}
           {this.props.addRestaurant ? 
@@ -112,7 +113,6 @@ class SimpleMap extends Component {
             />
           </React.Fragment>
           : null }
-          
         </GoogleMapReact>
       </div>
     );
