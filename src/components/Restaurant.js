@@ -20,20 +20,27 @@ class Restaurant extends Component {
         })
       }
 
+    // checkWhichMarkerClicked = () => {
+    //     let placeIdClick = this.props.placeIdClick;
+    //     let placeId = this.props.placeId;
+    //     if(placeIdClick === placeId) {
+    //         console.log("They match! Name of restaurant is: ", this.props.name);
+    //         // placeId.scrollIntoView(true);
+    //     }
+    // }
+
     checkStreetView = () => {
     axios
       .get(
-        // `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${this.props.location.lat},${this.props.location.lng}&heading=151.78&pitch=-0.76&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
-        // `https://maps.googleapis.com/maps/api/streetview/metadata?size=600x300&location=${this.props.location.lat},${this.props.location.lng}e&heading=-45&pitch=42&fov=110&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
         `https://maps.googleapis.com/maps/api/streetview/metadata?size=600x300&location=${this.props.location.lat},${this.props.location.lng}&fov=90&heading=235&pitch=10&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
       )
       .then(
             (response) => {
                 if(response.data.status === "OK") {
-                    console.log("This is returning fine!");
+                    // console.log("This is returning fine!");
                     return `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${this.props.location.lat},${this.props.location.lng}&heading=151.78&pitch=-0.76&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
                 } else if (response.data.status === "ZERO_RESULTS") {
-                    console.log(response.data)
+                    // console.log(response.data)
                     // console.log(response.data.status)
                     return require('../images/restaurant.jpg')
                 }
@@ -41,8 +48,8 @@ class Restaurant extends Component {
       )
       .catch(
             (error) => {
-                    console.log(error);
-                    console.log(error.response.data.error)
+                console.log(error);
+                console.log(error.response.data.error)
             }
       )
     }
@@ -55,10 +62,13 @@ class Restaurant extends Component {
 
         let photo_url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${this.props.photo.photo_reference}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
 
-        console.log(this.checkStreetView());
+        // console.log(this.checkStreetView());
+
+        // this.checkWhichMarkerClicked();
 
         return (
-            <div id="card" className="card">
+            // <div className={this.checkWhichMarkerClicked ? 'card card-selected' : 'card'} >
+            <div className='card'>
                 <h4 className="restaurant-name arial-font">{this.props.name}</h4>
                 <div className="display-flex">
                     <FontAwesomeIcon icon={faMapMarkerAlt} size="xs" />

@@ -13,6 +13,8 @@ class Marker extends Component {
       this.setState({
         infoWindowOpen: !this.state.infoWindowOpen,
       })
+      const placeId = this.props.placeId
+      this.props.handleScrollHighlight(placeId);
     }
 
     

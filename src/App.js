@@ -18,7 +18,8 @@ export default class App extends Component {
     filteredRestaurants: [],
     isFiltered: false,
     addRestaurant: false,
-    rating: 0
+    rating: 0,
+    placeIdClick: ""
   }
 
   getRestaurants = () => {
@@ -70,7 +71,7 @@ export default class App extends Component {
         stars.push(
             <Star 
                 key={i}
-                setRating={ () => this.handleSetRating(i + 1)}
+                setRating={ () => this.handleSetRating(maxRating - i)}
                 isSelected={this.state.rating > i}
             />
         );
@@ -78,34 +79,58 @@ export default class App extends Component {
     return stars;
   }
 
+
+  
   filterRestaurants = () => {
-    // this.getRestaurants(); //Calling for the original restaurants array again so when filtering a second time it doesn't filter through the first filtered array.
+    // console.log(this.state.rating)
     const result = this.state.restaurants.filter(restaurant =>
         restaurant.rating >= this.state.rating
         );
     console.log("Result of the filter: ", result);
-    this.setState({
-      isFiltered: true,
-      filteredRestaurants: result
-    })
-    console.log("this.state.restaurants after the filter (filtered results pushed into the state): ", this.state.restaurants)
+    this.setState(
+      (state) => ({
+        isFiltered: !state.isFiltered,
+        filteredRestaurants: result
+      })
+    )
+    // this.setState({
+    //   isFiltered: true,
+    //   filteredRestaurants: result
+    // })
+    // console.log("this.state.filteredRestaurants: ", this.state.filteredRestaurants)
   }
 
   handleSetRating = (rating) => {
+    console.log("Rating passed to handleSetRating as argument: ", rating)
       if(this.state.rating === rating) {
-          this.setState({
+          this.setState(
+            (state) => ({
               rating: 0,
-              isFiltered: false
-          });
-          this.getRestaurants(); //Calling the original google API array if clicking the ratings star amount again, cancelling the filter request
+              isFiltered: !state.isFiltered
+            })
+          )
+            
+          //   {
+          //     rating: 0,
+          //     isFiltered: false
+          // });
+          // console.log(this.state.rating)
       } else {
-          this.setState({
+          // this.setState({
+          //     rating: rating,
+          //     isFiltered: false
+          // });
+          this.setState(
+            (state) => ({
               rating,
-              isFiltered: true
-          });
+              isFiltered: !state.isFiltered
+            })
+          )
+          // console.log("Rating state in handleSetRating(): ", this.state.rating)
           this.filterRestaurants();
+        }
+        // console.log("Rating state at end of handleSetRating(): ", this.state.rating)
       }
-  } 
 
   
 
@@ -127,8 +152,18 @@ export default class App extends Component {
     console.log(this.state.restaurants)
   }
 
+
+  // handleScrollHighlight = (placeId) => { //Brings the placeId of the marker clicked up to the App.js 
+  //   console.log(placeId);
+  //   this.setState({
+  //     placeIdClick: placeId
+  //   })
+  // }
+
+
     render(){
-      console.log("This.state.restaurants: ", this.state.restaurants)
+      console.log("This.state.rating: ", this.state.rating)
+      console.log("This.state.filteredRestaurants: ", this.state.filteredRestaurants)
       // console.log(this.state.coordinates)
       return (
         <div>
@@ -142,18 +177,20 @@ export default class App extends Component {
           <div className="App">
             <div className="map">
               <SimpleMap
-                restaurants={this.state.restaurants}
+                restaurants={ this.state.isFiltered? this.state.filteredRestaurants : this.state.restaurants}
                 coordinates={this.state.coordinates}
                 addNewRestaurant={this.addNewRestaurant} //function that actually adds the restaurant to the restaurant array
                 addRestaurant={this.state.addRestaurant} //the toggle state for restaurant form
                 handleAddRestaurant={this.handleAddRestaurant} //toggles the restaurant form
+                handleScrollHighlight={this.handleScrollHighlight}
               />
             </div>
             <div className="restaurant-list">
               <RestaurantList   
-                restaurants={this.state.restaurants}
+                restaurants={ this.state.isFiltered? this.state.filteredRestaurants : this.state.restaurants}
                 renderStars={this.renderStars}
                 handleSetRating={this.handleSetRating}
+                placeIdClick={this.state.placeIdClick}
                 // filterRestaurants={this.filterRestaurants}
                 />
             </div>

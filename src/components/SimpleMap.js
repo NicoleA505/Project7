@@ -100,6 +100,7 @@ class SimpleMap extends Component {
               rating = {restaurant.rating}
               placeId = {restaurant.place_id}
               photo = {restaurant.photos[0]}
+              handleScrollHighlight={this.props.handleScrollHighlight}
             />
           )}
           {this.props.addRestaurant ? 
