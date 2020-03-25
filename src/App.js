@@ -89,7 +89,7 @@ export default class App extends Component {
     console.log("Result of the filter: ", result);
     this.setState(
       (state) => ({
-        isFiltered: !state.isFiltered,
+        // isFiltered: !state.isFiltered,
         filteredRestaurants: result
       })
     )
@@ -102,20 +102,14 @@ export default class App extends Component {
 
   handleSetRating = (rating) => {
     console.log("Rating passed to handleSetRating as argument: ", rating)
-      if(this.state.rating === rating) {
-          this.setState(
-            (state) => ({
-              rating: 0,
-              isFiltered: !state.isFiltered
-            })
-          )
-            
-          //   {
-          //     rating: 0,
-          //     isFiltered: false
-          // });
-          // console.log(this.state.rating)
-      } else {
+      // if(this.state.rating === rating) {
+      //     this.setState(
+      //       (state) => ({
+      //         rating: 0,
+      //         isFiltered: !state.isFiltered
+      //       })
+      //     )
+      // } else {
           // this.setState({
           //     rating: rating,
           //     isFiltered: false
@@ -130,7 +124,6 @@ export default class App extends Component {
           this.filterRestaurants();
         }
         // console.log("Rating state at end of handleSetRating(): ", this.state.rating)
-      }
 
   
 
@@ -161,8 +154,9 @@ export default class App extends Component {
   // }
 
 
-    render(){
+    render() {
       console.log("This.state.rating: ", this.state.rating)
+      console.log("This.state.isFiltered: ", this.state.isFiltered)
       console.log("This.state.filteredRestaurants: ", this.state.filteredRestaurants)
       // console.log(this.state.coordinates)
       return (
