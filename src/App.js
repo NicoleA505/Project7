@@ -18,8 +18,11 @@ export default class App extends Component {
     filteredRestaurants: [],
     isFiltered: false,
     addRestaurant: false,
-    rating: 0,
-    placeIdClick: ""
+    rating: 5,
+    placeIdClick: "",
+    placeIdofRestaurantToCompare: "",
+    matchIsFound: false
+    // isInfoWindowOpen: false
   }
 
   getRestaurants = () => {
@@ -40,29 +43,11 @@ export default class App extends Component {
     })
   }
 
-  componentDidMount = () => {
-
-    const getPosition = () => {
-      return new Promise(function(resolve, reject) {
-        navigator.geolocation.getCurrentPosition(resolve, reject)
-      })
-    }
-    
-  getPosition()
-    .then( (position) => {
-      this.setState({
-        coordinates: {
-          ...this.state.coordinates,
-          lat: position.coords.latitude,
-          long: position.coords.longitude
-        } 
-      })
-      this.getRestaurants();
+  getPosition = () => {
+    return new Promise(function(resolve, reject) {
+      navigator.geolocation.getCurrentPosition(resolve, reject)
     })
-    .catch( (err) => {
-      console.error(err.message);
-    })
-  } //End of ComponentDidMount
+  }
 
   renderStars = () => {
     let stars = [];
@@ -79,52 +64,15 @@ export default class App extends Component {
     return stars;
   }
 
-
-  
-  filterRestaurants = () => {
-    // console.log(this.state.rating)
-    const result = this.state.restaurants.filter(restaurant =>
-        restaurant.rating >= this.state.rating
-        );
-    console.log("Result of the filter: ", result);
-    this.setState(
-      (state) => ({
-        // isFiltered: !state.isFiltered,
-        filteredRestaurants: result
-      })
-    )
-    // this.setState({
-    //   isFiltered: true,
-    //   filteredRestaurants: result
-    // })
-    // console.log("this.state.filteredRestaurants: ", this.state.filteredRestaurants)
-  }
-
   handleSetRating = (rating) => {
     console.log("Rating passed to handleSetRating as argument: ", rating)
-      // if(this.state.rating === rating) {
-      //     this.setState(
-      //       (state) => ({
-      //         rating: 0,
-      //         isFiltered: !state.isFiltered
-      //       })
-      //     )
-      // } else {
-          // this.setState({
-          //     rating: rating,
-          //     isFiltered: false
-          // });
-          this.setState(
-            (state) => ({
-              rating,
-              isFiltered: !state.isFiltered
-            })
-          )
-          // console.log("Rating state in handleSetRating(): ", this.state.rating)
-          this.filterRestaurants();
-        }
-        // console.log("Rating state at end of handleSetRating(): ", this.state.rating)
-
+      this.setState(
+        (state) => ({
+          rating,
+          isFiltered: true
+        })
+      )
+    }
   
 
   handleAddRestaurant = () => {
@@ -145,24 +93,81 @@ export default class App extends Component {
     console.log(this.state.restaurants)
   }
 
+  minusRating = () => {
+    if (this.state.rating === 5) {
+      // console.log("it's a 5 and returning 0.9")
+      return 0.9
+    } else {
+      // console.log("it's NOT a 5 and returning 0")
+      return 0
+    }
+  }
 
-  // handleScrollHighlight = (placeId) => { //Brings the placeId of the marker clicked up to the App.js 
-  //   console.log(placeId);
+  bringPlaceIdUp = (placeId) => { //Brings the placeId of the restaurant in the RestaurantList up to this component
+    if(placeId) {
+      this.setState({
+        placeIdofRestaurantToCompare: placeId
+      })
+      return true;
+    }
+  }
+
+  // bringInfoWindowOpenUp = () => {
   //   this.setState({
-  //     placeIdClick: placeId
+  //     isInfoWindowOpen: true
   //   })
   // }
 
+  handleScrollHighlight = (placeId) => { //Brings the placeId of the marker clicked up to the App.js 
+    console.log(placeId);
+    this.setState({
+      placeIdClick: placeId,
+    })
+    // if (this.state.placeIdClick === this.state.placeIdofRestaurantToCompare && this.state.isInfoWindowOpen) {
+    if (this.state.placeIdClick === this.state.placeIdofRestaurantToCompare) {
+      console.log("This is actually working at they match!")
+      this.setState({
+        matchIsFound: true
+      })
+    }
 
+  }
+
+
+  componentDidMount = () => {
+    
+  this.getPosition()
+    .then( (position) => {
+      this.setState({
+        coordinates: {
+          ...this.state.coordinates,
+          lat: position.coords.latitude,
+          long: position.coords.longitude
+        } 
+      })
+      this.getRestaurants();
+    })
+    .catch( (err) => {
+      console.error(err.message);
+    })
+  }       //End of ComponentDidMount
+
+ 
     render() {
-      console.log("This.state.rating: ", this.state.rating)
-      console.log("This.state.isFiltered: ", this.state.isFiltered)
-      console.log("This.state.filteredRestaurants: ", this.state.filteredRestaurants)
-      // console.log(this.state.coordinates)
+
+      let filteredItems = this.state.restaurants.filter( restaurant =>
+            restaurant.rating >= (this.state.rating - this.minusRating())
+        )
+      // console.log("filteredItems: ", filteredItems);
+
+      let selectedRestaurants = this.state.isFiltered? filteredItems : this.state.restaurants;
+      // console.log("selectedRestaurants: ", selectedRestaurants);
+
       return (
+        
         <div>
           <nav className="navbar navbar-light bg-light">
-            <a className="navbar-brand main-header-text display-flex" href="#nav">
+            <a className="navbar-brand main-header-text display-flex m-0" href="#nav">
               <img src={iconImage} className="d-inline-block align-top icon-image" alt="" />
               <span>Spoon Search</span>
             </a>
@@ -171,21 +176,23 @@ export default class App extends Component {
           <div className="App">
             <div className="map">
               <SimpleMap
-                restaurants={ this.state.isFiltered? this.state.filteredRestaurants : this.state.restaurants}
+                restaurants={selectedRestaurants}
                 coordinates={this.state.coordinates}
                 addNewRestaurant={this.addNewRestaurant} //function that actually adds the restaurant to the restaurant array
                 addRestaurant={this.state.addRestaurant} //the toggle state for restaurant form
                 handleAddRestaurant={this.handleAddRestaurant} //toggles the restaurant form
                 handleScrollHighlight={this.handleScrollHighlight}
+                bringInfoWindowOpenUp={this.bringInfoWindowOpenUp}
               />
             </div>
             <div className="restaurant-list">
               <RestaurantList   
-                restaurants={ this.state.isFiltered? this.state.filteredRestaurants : this.state.restaurants}
+                restaurants={selectedRestaurants}
                 renderStars={this.renderStars}
                 handleSetRating={this.handleSetRating}
                 placeIdClick={this.state.placeIdClick}
-                // filterRestaurants={this.filterRestaurants}
+                bringPlaceIdUp={this.bringPlaceIdUp}
+                matchIsFound={this.state.matchIsFound}
                 />
             </div>
           </div>

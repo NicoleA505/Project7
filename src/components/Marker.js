@@ -8,6 +8,11 @@ class Marker extends Component {
       infoWindowOpen: false
     }
     
+    // checkingIsInfowindowOpen = () => {
+    //   if (this.state.infoWindowOpen) {
+    //     this.props.bringInfoWindowOpenUp()
+    //   }
+    // }
 
     handleInfoWindow = (e) => {
       this.setState({
@@ -16,6 +21,11 @@ class Marker extends Component {
       const placeId = this.props.placeId
       this.props.handleScrollHighlight(placeId);
     }
+
+    // onClick = (e) => {
+    //   this.checkingIsInfowindowOpen();
+    //   this.handleInfoWindow(e)
+    // }
 
     
     render() {
