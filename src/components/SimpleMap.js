@@ -14,10 +14,10 @@ class SimpleMap extends Component {
     center: {
       lat: 0,
       long: 0
-    }
-    // clickMap: true,
-    // clickLat: 0,
-    // clickLng: 0
+    },
+    clickMap: true,
+    clickLat: 0,
+    clickLng: 0
   }
 
 

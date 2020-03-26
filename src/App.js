@@ -111,12 +111,6 @@ export default class App extends Component {
     }
   }
 
-  // bringInfoWindowOpenUp = () => {
-  //   this.setState({
-  //     isInfoWindowOpen: true
-  //   })
-  // }
-
   handleScrollHighlight = (placeId) => { //Brings the placeId of the marker clicked up to the App.js 
     // console.log(placeId);
     this.setState({
