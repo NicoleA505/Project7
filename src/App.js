@@ -22,7 +22,6 @@ export default class App extends Component {
     placeIdClick: "",
     placeIdofRestaurantToCompare: "",
     matchIsFound: false
-    // isInfoWindowOpen: false
   }
 
   getRestaurants = () => {
@@ -119,7 +118,7 @@ export default class App extends Component {
   // }
 
   handleScrollHighlight = (placeId) => { //Brings the placeId of the marker clicked up to the App.js 
-    console.log(placeId);
+    // console.log(placeId);
     this.setState({
       placeIdClick: placeId,
     })
@@ -130,7 +129,12 @@ export default class App extends Component {
         matchIsFound: true
       })
     }
+  }
 
+  handleScrollHighlightRemove = () => {
+    this.setState({
+      matchIsFound: false
+    })
   }
 
 
@@ -183,6 +187,7 @@ export default class App extends Component {
                 handleAddRestaurant={this.handleAddRestaurant} //toggles the restaurant form
                 handleScrollHighlight={this.handleScrollHighlight}
                 bringInfoWindowOpenUp={this.bringInfoWindowOpenUp}
+                handleScrollHighlightRemove={this.handleScrollHighlightRemove}
               />
             </div>
             <div className="restaurant-list">

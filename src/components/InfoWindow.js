@@ -9,6 +9,7 @@ const InfoWindow = (props) => {
 
     return (
         <div className="infoWindowPopUp">
+            {/* <button onClick={} >X</button> */}
             <h5>{props.name}</h5>
             <p>Rating: <span className="star-symbol">{char.repeat(props.rating)}</span><span className="ratingNumber">{props.rating}</span></p>
             <img className="streetviewImage" src={photo_url} alt={props.name}/>

@@ -113,7 +113,8 @@ class Restaurant extends Component {
                    
 
                 </div>
-                <button className="btn btn-primary seeReviewsButton" onClick={this.handleClick} type="button">
+                {/* className={this.checkAgain() ? 'btn btn-primary seeReviewsButton jello-horizontal' : 'btn btn-primary seeReviewsButton'} */}
+                <button className={this.checkAgain() ? 'btn btn-primary seeReviewsButton jello-horizontal' : 'btn btn-primary seeReviewsButton'} onClick={this.handleClick} type="button">
                     {this.state.isToggle? "Hide Reviews" : "See Reviews"}
                 </button>
                 { this.state.isToggle ? 

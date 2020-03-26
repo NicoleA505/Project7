@@ -107,6 +107,8 @@ class SimpleMap extends Component {
               photo = {restaurant.photos[0]}
               handleScrollHighlight={this.props.handleScrollHighlight}
               bringInfoWindowOpenUp={this.props.bringInfoWindowOpenUp}
+              handleScrollHighlightRemove={this.props.handleScrollHighlightRemove}
+
             />
           )}
           {this.props.addRestaurant ? 

@@ -15,12 +15,35 @@ class Marker extends Component {
     // }
 
     handleInfoWindow = (e) => {
-      this.setState({
-        infoWindowOpen: !this.state.infoWindowOpen,
-      })
-      const placeId = this.props.placeId
-      this.props.handleScrollHighlight(placeId);
+
+      if(this.state.infoWindowOpen === false) {
+        this.setState({
+          infoWindowOpen: !this.state.infoWindowOpen
+        })
+        const placeId = this.props.placeId
+        this.props.handleScrollHighlight(placeId);
+      } else {
+        this.setState({
+          infoWindowOpen: !this.state.infoWindowOpen
+        })
+      }  
     }
+
+    // handleInfoWindow = (e) => {
+
+    //   if(this.state.infoWindowOpen === false) {
+    //     this.setState({
+    //       infoWindowOpen: !this.state.infoWindowOpen
+    //     })
+    //     const placeId = this.props.placeId
+    //     this.props.handleScrollHighlight(placeId);
+    //   } else if (this.state.infoWindowOpen === true) {
+    //     this.setState({
+    //       infoWindowOpen: !this.state.infoWindowOpen
+    //     })
+    //     this.props.handleScrollHighlightRemove();
+    //   } 
+    // }
 
     // onClick = (e) => {
     //   this.checkingIsInfowindowOpen();
