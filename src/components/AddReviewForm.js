@@ -25,7 +25,7 @@ class AddReviewForm extends Component {
             stars.push(
                 <Star 
                     key={i}
-                    setRating={ () => this.handleSetRating(i + 1)}
+                    setRating={ () => this.handleSetRating(maxRating - i)}
                     isSelected={this.state.rating > i}
                 />
             );

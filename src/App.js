@@ -156,10 +156,10 @@ export default class App extends Component {
       let filteredItems = this.state.restaurants.filter( restaurant =>
             restaurant.rating >= (this.state.rating - this.minusRating())
         )
-      // console.log("filteredItems: ", filteredItems);
+      console.log("filteredItems: ", filteredItems);
 
       let selectedRestaurants = this.state.isFiltered? filteredItems : this.state.restaurants;
-      // console.log("selectedRestaurants: ", selectedRestaurants);
+      console.log("selectedRestaurants: ", selectedRestaurants);
 
       return (
         
