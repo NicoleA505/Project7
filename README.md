@@ -1,3 +1,6 @@
+This project was created intentionally without using the Context API or Redux in order to properly understand how data (props/state) are shared in React.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
